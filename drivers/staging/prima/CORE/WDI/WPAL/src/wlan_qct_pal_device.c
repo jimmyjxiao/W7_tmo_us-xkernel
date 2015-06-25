@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2015 The Linux Foundation. All rights reserved.
+ * Copyright (c) 2012-2014 The Linux Foundation. All rights reserved.
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -34,6 +34,9 @@
   This file implements the device specific HW access interface
   required by the WLAN Platform Abstraction Layer (WPAL)
 
+  Copyright (c) 2011 QUALCOMM Incorporated.
+  All Rights Reserved.
+  Qualcomm Confidential and Proprietary
 ========================================================================*/
 
 /*===========================================================================
@@ -332,7 +335,6 @@ wpt_status wpalEnableInterrupt
 )
 {
    int ret;
-   wpt_status status = eWLAN_PAL_STATUS_SUCCESS;
    
    switch (intType) 
    {
@@ -399,12 +401,11 @@ wpt_status wpalEnableInterrupt
       WPAL_TRACE(eWLAN_MODULE_DAL_DATA, eWLAN_PAL_TRACE_LEVEL_ERROR,
                     "%s: unknown interrupt: %d",
                     __func__, (int)intType);
-      status = eWLAN_PAL_STATUS_E_INVAL;
       break;
    }
    /* on the integrated platform there is no platform-specific
       interrupt control */
-   return status;
+   return eWLAN_PAL_STATUS_SUCCESS;
 }
 
 /**
@@ -427,9 +428,7 @@ wpt_status wpalDisableInterrupt
    wpt_uint32    intType
 )
 {
-   wpt_status status = eWLAN_PAL_STATUS_SUCCESS;
-
-   switch (intType)
+   switch (intType) 
    {
    case DXE_INTERRUPT_RX_READY:
       gpEnv->rx_disable_return = VOS_RETURN_ADDRESS;
@@ -443,13 +442,12 @@ wpt_status wpalDisableInterrupt
       WPAL_TRACE(eWLAN_MODULE_DAL_DATA, eWLAN_PAL_TRACE_LEVEL_ERROR,
                     "%s: unknown interrupt: %d",
                     __func__, (int)intType);
-      status = eWLAN_PAL_STATUS_E_INVAL;
       break;
    }
 
    /* on the integrated platform there is no platform-specific
       interrupt control */
-   return status;
+   return eWLAN_PAL_STATUS_SUCCESS;
 }
 
 /**
